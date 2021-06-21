@@ -1,0 +1,3 @@
+*.tar.gz
+*.root
+tmp_test_package/
