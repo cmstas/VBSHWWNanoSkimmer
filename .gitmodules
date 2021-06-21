@@ -1,3 +1,6 @@
 [submodule "NanoTools"]
 	path = NanoTools
 	url = git@github.com:cmstas/NanoTools.git
+[submodule "condor/ProjectMetis"]
+	path = condor/ProjectMetis
+	url = git@github.com:aminnj/ProjectMetis.git
