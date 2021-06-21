@@ -22,6 +22,13 @@ git checkout e963c70
 # Copy the extra files
 cp ../../../../../extra/* python/postprocessing/examples
 
+# Get the git information
+cd ../../../../../
+git diff > tmp_create_package/${CMSSWVERSION}/src/PhysicsTools/NanoAODTools/gitdiff.txt
+git status > tmp_create_package/${CMSSWVERSION}/src/PhysicsTools/NanoAODTools/gitstatus.txt
+git rev-parse HEAD > tmp_create_package/${CMSSWVERSION}/src/PhysicsTools/NanoAODTools/githash.txt
+cd tmp_create_package/${CMSSWVERSION}/src/PhysicsTools/NanoAODTools/
+
 # Setup and compile
 cmsenv
 scram b -j
