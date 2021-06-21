@@ -4,6 +4,19 @@ from metis.Sample import DBSSample, DirectorySample
 from metis.CondorTask import CondorTask
 from metis.StatsParser import StatsParser
 
+import sys
+
+def usage():
+    print("Usage:")
+    print("")
+    print("  python {} TAG".format(sys.argv[0]))
+    print("")
+    sys.exit()
+
+try:
+    tag = sys.argv[1]
+except:
+    usage()
 
 if __name__ == "__main__":
 
@@ -476,46 +489,7 @@ if __name__ == "__main__":
             ]
 
     # submission tag
-    tag = "v12"
-    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v5_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz" # your tarfile with assorted goodies here
-    tag = "v13"
-    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v6_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz" # your tarfile with assorted goodies here
-    tag = "v14"
-    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v7_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz" # your tarfile with assorted goodies here
-    tag = "v15"
-    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v8_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz" # >= 2 leptons of any charge (35 GeV each) + njets_20 >= 4
-    #============================================================================================================================
-    # tag = "v16"# BUGGY Tau counters were messed up
-    # tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v9_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    #============================================================================================================================
-    #============================================================================================================================
-    # tag = "v17"# BUGGY Tau counters were messed up
-    # tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v10_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    #============================================================================================================================
-    #============================================================================================================================
-    # tag = "v18" # BUGGY
-    # tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v11_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    #============================================================================================================================
-    ##============================================================================================================================
-    #tag = "v19" # BUGGY
-    #tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v12_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    ##============================================================================================================================
-    ##============================================================================================================================
-    #tag = "v20" # Same-sign
-    #tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v20_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    ##============================================================================================================================
-    ##============================================================================================================================
-    #tag = "v21" # Opposite-sign
-    #tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v21_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    ##============================================================================================================================
-    ##============================================================================================================================
-    #tag = "v22" # Opposite-sign inclusive in jets
-    #tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v22_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    ##============================================================================================================================
-    #============================================================================================================================
-    tag = "v30" # Same-sign ttH ID
-    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v30_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz"
-    #============================================================================================================================
+    tarfile = "/nfs-7/userdata/phchang/VBSHWWNanoSkimmer_{}_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz".format(tag)
 
     task_summary = {}
 
