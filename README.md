@@ -2,7 +2,7 @@
 
 To create a ```package.tar.gz``` for the condor jobs
 
-    sh create_package.sh
+    sh create_package.sh # This creates a package.tar.gz
 
 To test the package locally on some NanoAOD file
 
