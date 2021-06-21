@@ -60,7 +60,6 @@ for SAMPLEDIR in $(ls -d ${NANOSKIMDIR}/*); do
             TOTALNEVENTS=$((TOTALNEVENTS + ${NEGWEIGHTS}))
             TOTALNEFFEVENTS=$((TOTALNEFFEVENTS + ${POSWEIGHTS}))
             TOTALNEFFEVENTS=$((TOTALNEFFEVENTS - ${NEGWEIGHTS}))
-            # echo ${POSWEIGHTS} ${NEGWEIGHTS}
         done
         echo ${TOTALNEVENTS} > ${MERGEDDIR}/nevents.txt
         echo ${TOTALNEFFEVENTS} >> ${MERGEDDIR}/nevents.txt
@@ -78,13 +77,6 @@ for SAMPLEDIR in $(ls -d ${NANOSKIMDIR}/*); do
             echo "ERROR - Fail to process $SAMPLEDIR"
             exit
         fi
-        # rsync -ah --progress output.root ${SAMPLEDIR}/merged/output.root
-        # cp -v output.root ${SAMPLEDIR}/merged/output.root
-        # SAMPLEDIRPATHNEW=$(echo ${SAMPLEDIR} | sed 's/^.*\(\/store.*\).*$/\1/')
-        # COPY_SRC="file://`pwd`/output.root"
-        # COPY_DEST="davs://redirector.t2.ucsd.edu:1094/${SAMPLEDIRPATHNEW}/merged/output.root"
-        # echo "gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}"
-        # break
     fi
     IDX=$((IDX + 1))
 done
