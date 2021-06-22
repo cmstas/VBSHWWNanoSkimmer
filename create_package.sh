@@ -7,7 +7,7 @@ CMSSWVERSION=CMSSW_10_2_13
 
 # Go to a working directory that will be cleaned afterwards
 rm -rf tmp_create_package
-mkdir tmp_create_package
+mkdir -p tmp_create_package
 cd tmp_create_package
 
 # Setup environment

@@ -109,13 +109,13 @@ class vbsHwwSkimProducer(Module):
             elif dottHID:
 
                 # check that if passes loose
-                if ROOT.SS.electronID(i, ROOT.SS.IDveto, ROOT.nt.year()):
+                if ROOT.ttH.electronID(i, ROOT.ttH.IDveto, ROOT.nt.year()):
                     nelectrons_veto += 1
                     leptons_veto.append(ROOT.nt.Electron_p4()[i])
                     leptons_veto_jetIdx.append(ROOT.nt.Electron_jetIdx()[i])
 
                     # If it passes tight save to the list
-                    if lep.pt > 35. and ROOT.SS.electronID(i, ROOT.SS.IDtight, ROOT.nt.year()):
+                    if lep.pt > 35. and ROOT.ttH.electronID(i, ROOT.ttH.IDtight, ROOT.nt.year()):
                         nelectrons_35 += 1
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Electron_p4()[i])
@@ -153,7 +153,7 @@ class vbsHwwSkimProducer(Module):
             elif dottHID:
 
                 # check that it passes loose
-                if ROOT.SS.tauID(i, ROOT.SS.IDfakable, ROOT.nt.year()):
+                if ROOT.ttH.tauID(i, ROOT.ttH.IDfakable, ROOT.nt.year()):
                     # tau-(non-tau lep) overlap removal
                     # Basically we give precedence to electrons/muons
                     save_this_tau = True
@@ -170,7 +170,7 @@ class vbsHwwSkimProducer(Module):
                     taus_veto.append(ROOT.nt.Tau_p4()[i])
 
                     # Check that it passes the tight
-                    if lep.pt > 35. and ROOT.SS.tauID(i, ROOT.SS.IDtight, ROOT.nt.year()):
+                    if lep.pt > 35. and ROOT.ttH.tauID(i, ROOT.ttH.IDtight, ROOT.nt.year()):
                         ntaus_35 += 1
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Tau_p4()[i])

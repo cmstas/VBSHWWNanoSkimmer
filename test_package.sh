@@ -29,7 +29,7 @@ SCRAMARCH=slc7_amd64_gcc700
 CMSSWVERSION=CMSSW_10_2_13
 
 # Go to a working directory that will be cleaned afterwards
-mkdir tmp_test_package
+mkdir -p tmp_test_package
 cd tmp_test_package
 
 # Setup environment (If already exists it will leave them be)

@@ -236,49 +236,11 @@ OUTPUTDIRPATHNEW=$(echo ${OUTPUTDIR} | sed 's/^.*\(\/store.*\).*$/\1/')
 COPY_SRC="file://`pwd`/${OUTPUTNAME}.root"
 COPY_DEST="davs://redirector.t2.ucsd.edu:1094//${OUTPUTDIRPATHNEW}/${OUTPUTNAME}_${IFILE}.root"
 stageout $COPY_SRC $COPY_DEST
-# echo "Running: env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}"
-# env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}
-# COPY_STATUS=$?
-# if [[ $COPY_STATUS != 0 ]]; then
-#     echo "Removing output file because gfal-copy crashed with code $COPY_STATUS"
-#     env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-rm --verbose ${COPY_DEST}
-#     REMOVE_STATUS=$?
-#     if [[ $REMOVE_STATUS != 0 ]]; then
-#         echo "Uhh, gfal-copy crashed and then the gfal-rm also crashed with code $REMOVE_STATUS"
-#     fi
-# fi
 
 # Copying n events
 COPY_SRC="file://`pwd`/nevents.txt"
 COPY_DEST="davs://redirector.t2.ucsd.edu:1094//${OUTPUTDIRPATHNEW}/${OUTPUTNAME}_${IFILE}_nevents.txt"
 stageout $COPY_SRC $COPY_DEST
-# echo "Running: env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}"
-# env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}
-# COPY_STATUS=$?
-# if [[ $COPY_STATUS != 0 ]]; then
-#     echo "Removing output file because gfal-copy crashed with code $COPY_STATUS"
-#     env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-rm --verbose ${COPY_DEST}
-#     REMOVE_STATUS=$?
-#     if [[ $REMOVE_STATUS != 0 ]]; then
-#         echo "Uhh, gfal-copy crashed and then the gfal-rm also crashed with code $REMOVE_STATUS"
-#     fi
-# fi
-
-# Copying n events skimmed
-COPY_SRC="file://`pwd`/nevents_skimmed.txt"
-COPY_DEST="davs://redirector.t2.ucsd.edu:1094//${OUTPUTDIRPATHNEW}/${OUTPUTNAME}_${IFILE}_nevents_skimmed.txt"
-stageout $COPY_SRC $COPY_DEST
-# echo "Running: env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}"
-# env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-copy -p -f -t 4200 --verbose --checksum ADLER32 ${COPY_SRC} ${COPY_DEST}
-# COPY_STATUS=$?
-# if [[ $COPY_STATUS != 0 ]]; then
-#     echo "Removing output file because gfal-copy crashed with code $COPY_STATUS"
-#     env -i X509_USER_PROXY=${X509_USER_PROXY} gfal-rm --verbose ${COPY_DEST}
-#     REMOVE_STATUS=$?
-#     if [[ $REMOVE_STATUS != 0 ]]; then
-#         echo "Uhh, gfal-copy crashed and then the gfal-rm also crashed with code $REMOVE_STATUS"
-#     fi
-# fi
 
 echo -e "\n--- end copying output ---\n" #                    <----- section division
 
