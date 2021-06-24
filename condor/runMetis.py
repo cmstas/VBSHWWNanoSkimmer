@@ -453,10 +453,10 @@ if __name__ == "__main__":
             DBSSample(dataset="/SingleMuon/Run2018C-02Apr2020-v1/NANOAOD"), #
             DBSSample(dataset="/SingleMuon/Run2018D-02Apr2020-v1/NANOAOD"), #
 
-            DirectorySample(
-                location = "/hadoop/cms/store/user/phchang/nanoaod/VBSWmpWmpHToLNuLNu_TuneCP5_13TeV-madgraph-pythia8_PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1_NANOAODSIM",
-                dataset = "/VBSWmpWmpHToLNuLNu_TuneCP5_13TeV-madgraph-pythia8/PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM",
-                ),
+            # DirectorySample(
+            #     location = "/hadoop/cms/store/user/phchang/nanoaod/VBSWmpWmpHToLNuLNu_TuneCP5_13TeV-madgraph-pythia8_PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1_NANOAODSIM",
+            #     dataset = "/VBSWmpWmpHToLNuLNu_TuneCP5_13TeV-madgraph-pythia8/PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM",
+            #     ),
             # DirectorySample(
             #     location = "/hadoop/cms/store/user/phchang/nanoaod/VBSWmpWmpHToLNuLNu_dKLambda_m20_TuneCP5_13TeV-madgraph-pythia8_PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1_NANOAODSIM",
             #     dataset = "/VBSWmpWmpHToLNuLNu_dKLambda_m20_TuneCP5_13TeV-madgraph-pythia8/PRIVATE_RunIIFall17NanoAODv7-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM",

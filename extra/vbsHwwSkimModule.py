@@ -180,8 +180,8 @@ class vbsHwwSkimProducer(Module):
         if not (nelectrons_veto + nmuons_veto >= 1             ): return False # First check that we have at least one light lepton
         if not (nelectrons_veto + nmuons_veto + ntaus_veto == 2): return False # Then check that we have exactly two veto leptons
         if not (nelectrons_35 + nmuons_35 + ntaus_35 == 2      ): return False # Then check that we have exactly two tight leptons
-        if not (charges[0] * charges[1] > 0                    ): return False # Then check that we have same-sign leptons
-        # if not (charges[0] * charges[1] < 0                    ): return False # Then check that we have opposite-sign leptons
+        # if not (charges[0] * charges[1] > 0                    ): return False # Then check that we have same-sign leptons
+        if not (charges[0] * charges[1] < 0                    ): return False # Then check that we have opposite-sign leptons
         #================================================================================================================
 
         # return True
