@@ -20,8 +20,6 @@ Then go to ```condor/```
 
     cd condor
 
-Then, in the ```runMetis.py``` point to the desired ```package.tar.gz``` by modifying ```tarfile``` variable, and give a new ```tag```.
-
 Then, setup the ```ProjectMetis```
 
     cd ProjectMetis
@@ -31,3 +29,6 @@ Then, setup the ```ProjectMetis```
 And run
 
     python runMetis.py v41 # automatically picks up /nfs-7/userdata/phchang/VBSHWWNanoSkimmer_v41_CMSSW_10_2_13_slc7_amd64_gcc700.package.tar.gz as the package
+
+If necessary, in ```runMetis.py```, point to the desired ```package.tar.gz``` by modifying ```tarfile``` variable, and give a new ```tag```.
+
