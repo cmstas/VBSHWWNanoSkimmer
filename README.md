@@ -1,4 +1,10 @@
-# NanoTools
+# Overview
+
+This creates a NanoSkimmer based on ```nanoAOD-tools```.  
+
+First, update the NanoTools to have some higher max values following the below section.  
+
+## NanoTools
 
 NOTE: The ```NanoTools/NanoCORE/Nano.h``` contains some hardcoded max number of objects that it can handle.  
 If an event trying to skim exceeds one of these boundaries, and the code accesses the relevant variable it will lead to segfault.  
@@ -35,9 +41,14 @@ Therefore, I strongly suggest that user modifies the max values like the followi
      #define NGENDRESSEDLEPTON_MAX 12 // for GenDressedLepton_* collection
      #define NGENPART_MAX 402 // for GenPart_* collection
 
-# VBSHWWNanoSkimmer
+## VBSHWWNanoSkimmer
 
-To create a ```package.tar.gz``` for the condor jobs
+Then, we need to create a ```package.tar.gz``` for the condor jobs.  
+The selections are defined in ```extra/vbsHwwSkimModule.py```.  
+Also ```extra/keep_and_drop.txt``` contains the list of branches to keep or drop.  
+Modify the files to your liking.  
+
+Then, to create a ```package.tar.gz``` for the condor jobs
 
     sh create_package.sh # This creates a package.tar.gz
 
