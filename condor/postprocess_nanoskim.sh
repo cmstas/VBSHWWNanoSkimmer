@@ -44,6 +44,7 @@ TAG=$(basename $NANOSKIMDIR)
 NFSDIR=/nfs-7/userdata/phchang/VBSHWWNanoSkim_${TAG}/
 NSAMPLES=$(ls -d ${NANOSKIMDIR}/* | wc -l)
 
+rm -f .haddjobs.txt
 IDX=1
 for SAMPLEDIR in $(ls -d ${NANOSKIMDIR}/*); do
     SAMPLENAME=$(basename ${SAMPLEDIR})
@@ -69,14 +70,16 @@ for SAMPLEDIR in $(ls -d ${NANOSKIMDIR}/*); do
         if [ ! -f ${DIR}/haddnano.py ]; then
             wget https://raw.githubusercontent.com/cms-nanoAOD/nanoAOD-tools/master/scripts/haddnano.py -O ${DIR}/haddnano.py
         fi
-        CMD="python ${DIR}/haddnano.py ${MERGEDDIR}/output.root ${SAMPLEDIR}/*.root"
-        $CMD > ${MERGEDDIR}/output_hadd.log 2>&1
-        EXITCODE=$?
-        if [ $EXITCODE -ne 0 ]; then
-            echo $CMD
-            echo "ERROR - Fail to process $SAMPLEDIR"
-            exit
-        fi
+        CMD="python ${DIR}/haddnano.py ${MERGEDDIR}/output.root ${SAMPLEDIR}/*.root > ${MERGEDDIR}/output_hadd.log 2>&1"
+        echo $CMD >> .haddjobs.txt
+        # EXITCODE=$?
+        # if [ $EXITCODE -ne 0 ]; then
+        #     echo $CMD
+        #     echo "ERROR - Fail to process $SAMPLEDIR"
+        #     exit
+        # fi
     fi
     IDX=$((IDX + 1))
 done
+
+xargs.sh .haddjobs.txt

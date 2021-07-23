@@ -116,8 +116,11 @@ echo -e "\n--- begin running ---\n" #                           <----- section d
 
 #------------------------------------------------------------------------------------------------------------------------------>
 localpath=$(echo ${INPUTFILENAMES} | sed 's/^.*\(\/store.*\).*$/\1/')
-INPUTFILE=root://xcache-redirector.t2.ucsd.edu:2042/${localpath}
-# INPUTFILE=root://cmsxrootd.fnal.gov/${localpath}
+if [[ "${GLIDEIN_CMSSite}" == *"UCSD"* ]] || [[ "${GLIDEIN_CMSSite}" == *"Caltech"* ]]; then
+    INPUTFILE=root://xcache-redirector.t2.ucsd.edu:2042/${localpath}
+else
+    INPUTFILE=root://cmsxrootd.fnal.gov/${localpath}
+fi
 echo ${INPUTFILE}
 #------------------------------------------------------------------------------------------------------------------------------>
 
@@ -144,6 +147,8 @@ if grep -q "badread" check_xrd_stderr.txt || [[ "${EXTRAARGS}" == *"fetch_nano"*
     echo "Begin xrdcp"
     echo "Running... xrdcp root://xrootd.unl.edu/$input $dest"
     xrdcp root://xrootd.unl.edu/$input $dest
+    # echo "Running... xrdcp root://cmsxrootd.fnal.gov/$input $dest"
+    # xrdcp root://cmsxrootd.fnal.gov/$input $dest
     echo "Done xrdcp"
     echo -e "\n--- end downloading via xrdcp ---\n" #                           <----- section division
     # Get local filepath name
@@ -249,5 +254,8 @@ echo -e "\n--- begin cleaning area ---\n" #                    <----- section di
 
 echo "rm -rf mc/"
 rm -rf mc/
+
+echo "rm -rf data/"
+rm -rf data/
 
 echo -e "\n--- end cleaning output ---\n" #                    <----- section division

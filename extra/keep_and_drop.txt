@@ -13,7 +13,8 @@ keep run*
 keep luminosityBlock*
 keep genWeight*
 keep btagWeight*
-keep LHEWeight*
+keep LHE*
+keep *Weight*
 keep Flag*
 keep SubJet*
 keep HLT_*
