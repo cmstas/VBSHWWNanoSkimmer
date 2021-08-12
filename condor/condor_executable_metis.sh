@@ -145,10 +145,10 @@ if grep -q "badread" check_xrd_stderr.txt || [[ "${EXTRAARGS}" == *"fetch_nano"*
     #     dest=$2
     # fi
     echo "Begin xrdcp"
-    echo "Running... xrdcp root://xrootd.unl.edu/$input $dest"
-    xrdcp root://xrootd.unl.edu/$input $dest
-    # echo "Running... xrdcp root://cmsxrootd.fnal.gov/$input $dest"
-    # xrdcp root://cmsxrootd.fnal.gov/$input $dest
+    # echo "Running... xrdcp root://xrootd.unl.edu/$input $dest"
+    # xrdcp root://xrootd.unl.edu/$input $dest
+    echo "Running... xrdcp root://cmsxrootd.fnal.gov/$input $dest"
+    xrdcp root://cmsxrootd.fnal.gov/$input $dest
     echo "Done xrdcp"
     echo -e "\n--- end downloading via xrdcp ---\n" #                           <----- section division
     # Get local filepath name

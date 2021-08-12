@@ -194,8 +194,8 @@ class vbsHwwSkimProducer(Module):
         if not (nelectrons_veto + nmuons_veto >= 1             ): return False # First check that we have at least one light lepton
         if not (nelectrons_veto + nmuons_veto + ntaus_veto >= 2): return False # Then check that we have greater than or equal two veto leptons
         if not (nelectrons_35 + nmuons_35 + ntaus_35 >= 2      ): return False # Then check that we have at least one tight lepton
-        # if (nelectrons_veto + nmuons_veto + ntaus_veto == 2):
-        #     if not (charges_veto[0] * charges_veto[1] > 0      ): return False # Then if only 2 leptons then check that we have same-sign leptons
+        if (nelectrons_veto + nmuons_veto + ntaus_veto == 2):
+            if not (charges_veto[0] * charges_veto[1] > 0      ): return False # Then if only 2 leptons then check that we have same-sign leptons
         #================================================================================================================
 
         # Loop over the jets
