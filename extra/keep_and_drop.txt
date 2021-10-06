@@ -18,3 +18,4 @@ keep *Weight*
 keep Flag*
 keep SubJet*
 keep HLT_*
+keep Pileup*
