@@ -148,6 +148,7 @@ if grep -q "badread" check_xrd_stderr.txt || [[ "${EXTRAARGS}" == *"fetch_nano"*
     # echo "Running... xrdcp root://xrootd.unl.edu/$input $dest"
     # xrdcp root://xrootd.unl.edu/$input $dest
     echo "Running... xrdcp root://cmsxrootd.fnal.gov/$input $dest"
+    # echo "Running... xrdcp root://cms-xrd-global.cern.ch/$input $dest"
     xrdcp root://cmsxrootd.fnal.gov/$input $dest
     echo "Done xrdcp"
     echo -e "\n--- end downloading via xrdcp ---\n" #                           <----- section division
@@ -231,6 +232,37 @@ echo -e "\n--- end running ---\n" #                             <----- section d
 
 echo "after running: ls -lrth"
 ls -lrth
+
+echo -e "\n--- begin embedding nevents ---\n" #                    <----- section division
+cat <<EOT >> embed.C
+void embed(TString rootfile, TString logfile)
+{
+    TFile* file = new TFile(rootfile, "update");
+
+    std::vector<std::vector<int>> event_list;
+    event_list.clear();
+    ifstream ifile;
+    ifile.open(logfile.Data());
+    std::string line;
+
+    TH1D* h_nevents = new TH1D("h_nevents", "h_nevents", 3, 0, 3);
+
+    int nline = 0;
+    while (std::getline(ifile, line))
+    {
+        nline++;
+        if (nline == 1) continue;
+        if (nline == 2) continue;
+        TString rawline = line;
+        int nevt = rawline.Atoi();
+        h_nevents->SetBinContent(nline-2, nevt);
+    }
+    h_nevents->Write();
+}
+EOT
+root -l -b -q 'embed.C("'${OUTPUTNAME}.root'", "nevents.txt")'
+
+echo -e "\n--- end embedding nevents ---\n" #                    <----- section division
 
 echo -e "\n--- begin copying output ---\n" #                    <----- section division
 echo "Sending output file $OUTPUTNAME.root"

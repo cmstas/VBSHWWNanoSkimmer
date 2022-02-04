@@ -51,7 +51,12 @@ class vbsHwwSkimProducer(Module):
         jets = Collection(event, "Jet")
 
         doSSID = False
-        dottHID = not doSSID
+        dottHID = False
+        doPOGID = False
+        doTnPID = True
+        doLight3L = False
+        doLight2L = False
+        doLightTnP = True
 
         # list to hold the tight leptons with pt > 35 GeV (in the analysis we use 40 GeV but we want to keep it slightly loose for skimming)
         charges = []
@@ -97,6 +102,30 @@ class vbsHwwSkimProducer(Module):
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Muon_p4()[i])
 
+            elif doPOGID:
+                if not (ROOT.nt.Muon_mediumId()[i]): continue
+                if not (ROOT.nt.Muon_pfRelIso04_all()[i] < 0.25): continue
+                if not (lep.pt > 10): continue
+                if not (abs(lep.eta) < 2.4): continue
+                nmuons_veto += 1
+                charges_veto.append(lep.charge)
+                leptons_veto.append(ROOT.nt.Muon_p4()[i])
+                leptons_veto_jetIdx.append(ROOT.nt.Muon_jetIdx()[i])
+                # Then, if it passes tight ID save again
+                if lep.pt > 35. and ROOT.ttH.muonID(i, ROOT.ttH.IDtight, ROOT.nt.year()):
+                    nmuons_35 += 1
+                    charges.append(lep.charge)
+                    leptons.append(ROOT.nt.Muon_p4()[i])
+
+            elif doTnPID:
+                if not (ROOT.nt.Muon_looseId()[i]): continue
+                if not (lep.pt > 30): continue
+                if not (abs(lep.eta) < 2.4): continue
+                nmuons_veto += 1
+                charges_veto.append(lep.charge)
+                leptons_veto.append(ROOT.nt.Muon_p4()[i])
+                leptons_veto_jetIdx.append(ROOT.nt.Muon_jetIdx()[i])
+
         # Loop over the electrons
         nelectrons_veto = 0
         nelectrons_35 = 0
@@ -132,10 +161,43 @@ class vbsHwwSkimProducer(Module):
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Electron_p4()[i])
 
+            elif doPOGID:
+                if not (ROOT.nt.Electron_mvaFall17V2Iso_WP90()[i]): continue
+                if not (lep.pt > 10): continue
+                if not (abs(lep.eta) < 2.5): continue
+                nelectrons_veto += 1
+                charges_veto.append(lep.charge)
+                leptons_veto.append(ROOT.nt.Electron_p4()[i])
+                leptons_veto_jetIdx.append(ROOT.nt.Electron_jetIdx()[i])
+
+                # If it passes tight save to the list
+                if lep.pt > 35. and ROOT.ttH.electronID(i, ROOT.ttH.IDtight, ROOT.nt.year()):
+                    nelectrons_35 += 1
+                    charges.append(lep.charge)
+                    leptons.append(ROOT.nt.Electron_p4()[i])
+
+            elif doTnPID:
+                if not (ROOT.nt.Electron_mvaFall17V2noIso_WPL()[i]): continue
+                if not (lep.pt > 30): continue
+                if not (abs(lep.eta) < 2.5): continue
+                nelectrons_veto += 1
+                charges_veto.append(lep.charge)
+                leptons_veto.append(ROOT.nt.Electron_p4()[i])
+                leptons_veto_jetIdx.append(ROOT.nt.Electron_jetIdx()[i])
+
         # Loop over the taus
         ntaus_veto = 0
         ntaus_35 = 0
         for i, lep in enumerate(taus):
+
+            if doLight3L:
+                break
+
+            if doLight2L:
+                break
+
+            if doLightTnP:
+                break
 
             if doSSID:
 
@@ -163,7 +225,7 @@ class vbsHwwSkimProducer(Module):
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Tau_p4()[i])
 
-            elif dottHID:
+            elif dottHID or doPOGID:
 
                 # check that it passes loose
                 if ROOT.ttH.tauID(i, ROOT.ttH.IDveto, ROOT.nt.year()):
@@ -189,14 +251,34 @@ class vbsHwwSkimProducer(Module):
                         charges.append(lep.charge)
                         leptons.append(ROOT.nt.Tau_p4()[i])
 
-        #================================================================================================================
-        # Check that the number of lepton requirement is met
-        if not (nelectrons_veto + nmuons_veto >= 1             ): return False # First check that we have at least one light lepton
-        if not (nelectrons_veto + nmuons_veto + ntaus_veto >= 2): return False # Then check that we have greater than or equal two veto leptons
-        if not (nelectrons_35 + nmuons_35 + ntaus_35 >= 2      ): return False # Then check that we have at least one tight lepton
-        if (nelectrons_veto + nmuons_veto + ntaus_veto == 2):
-            if not (charges_veto[0] * charges_veto[1] > 0      ): return False # Then if only 2 leptons then check that we have same-sign leptons
-        #================================================================================================================
+        if doLight3L:
+            #================================================================================================================
+            # Check that the number of lepton requirement is met
+            if not (nelectrons_veto + nmuons_veto == 3             ): return False
+            #================================================================================================================
+            return True
+        elif doLight2L:
+            #================================================================================================================
+            # Check that the number of lepton requirement is met
+            if not (nelectrons_veto + nmuons_veto == 2             ): return False
+            #================================================================================================================
+            return True
+        elif doLightTnP:
+            #================================================================================================================
+            # Check that the number of lepton requirement is met
+            if not (nelectrons_veto >= 2 or nmuons_veto >= 2       ): return False
+            #================================================================================================================
+            return True
+        else:
+            #================================================================================================================
+            # Check that the number of lepton requirement is met
+            if not (nelectrons_veto + nmuons_veto >= 1             ): return False # First check that we have at least one light lepton
+            if not (nelectrons_veto + nmuons_veto + ntaus_veto >= 2): return False # Then check that we have greater than or equal two veto leptons
+            if not (nelectrons_35 + nmuons_35 + ntaus_35 >= 2      ): return False # Then check that we have at least one tight lepton
+            if (nelectrons_veto + nmuons_veto + ntaus_veto == 2):
+                if not (charges_veto[0] * charges_veto[1] > 0      ): return False # Then if only 2 leptons then check that we have same-sign leptons
+            #================================================================================================================
+
 
         # Loop over the jets
         njets_20 = 0
